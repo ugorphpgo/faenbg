@@ -1,0 +1,1 @@
+const troops = 0;

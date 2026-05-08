@@ -13,7 +13,7 @@ const prepare = () => {
 };
 //Класс отвечающий за игровой цикл
 class Game {
-  troops = Array();
+  armyBuilder = Array();
 }
 //класс отряда
 class Troop {

@@ -1,5 +1,5 @@
 // Создаем класс army
-class Army {
+class ArmyBuilder {
   constructor(side) {
     // Чья армия — нападающего или защищающегося
     this.side = side;
@@ -20,4 +20,4 @@ class Army {
   }
 }
 
-module.exports = Army;
+module.exports = ArmyBuilder;

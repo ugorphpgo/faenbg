@@ -7,7 +7,7 @@ function createUnit(templateName) {
   const template = unitTemplates[templateName];
 
   if (!template) {
-    throw new console.error(`Не найдет юнит "${templateName} "`);
+    throw new console.error(`Не тип юнита "${templateName} "`);
   }
 
   const unit = new Unit(

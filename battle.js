@@ -81,10 +81,27 @@ function command(battle, action) {
     console.log(`вы не можете делать действия во время чужого хода `);
     return;
   }
-  //простой вывод действия определнной стороны
-  console.log(`[${action.side}] : ${action.type}`);
-}
+  const actingSide = action.side === 'attacker' ? battle.attackSide : battle.defendSide; //проверка - чей отряд аттакует с помозью тернарного оператора
+  const targetSide = action.side === 'attacker' ? battle.defendSide : battle.attackSide;
 
+  if (action.type === 'attack') {
+    const attacker = actingSide.units[action.unitIndex];
+    const target = targetSide.units[action.targetIndex];
+
+    if (!attacker || !attacker.isAlive()) {
+      console.log('Аттакующего отряда не существуе или он уничтожен');
+      return;
+    }
+
+    if (!target || !target.isAlive()) {
+      console.log('Цели не существует или он уничтожен');
+      return;
+    }
+
+    attacker.attackStrategy(attacker, target);
+  }
+}
+//простой вывод действия определнной стороны
 function main() {
   //функция main-  тут воюем - продемонстрировано создание армии с отрядами и переход хода
 
@@ -92,7 +109,7 @@ function main() {
   attackSide.addUnit(createUnit('light_spearman')); //добавляем отряд в армию и создаем армию аттакера
 
   const defendSide = new Army('defender');
-  defendSide.addUnit(createUnit('heavy_spearman')); //добавляем отряд в армию и создаем армию аттакера
+  defendSide.addUnit(createUnit('archer')); //добавляем отряд в армию и создаем армию аттакера
 
   const battle = createBattle(attackSide, defendSide);
   console.log('проверка состояния после создания битвы:', battle.state); // создание битвы
@@ -102,39 +119,36 @@ function main() {
   console.log('проверка состояния после старта битвы:', battle.state); // battle
 
   //проверяем команды на вывод в консоль при неправильной стороне  для действия у каждой стороны после endTurn
-  command(battle, { side: 'defender', type: 'двигает отряд' });
-  command(battle, { side: 'attacker', type: 'двигает отряд' });
+  command(battle, {
+    side: 'attacker',
+    type: 'attack',
+    unitIndex: 0, // легкий копейщик атакует лучника
+    targetIndex: 0,
+  });
   endTurn(battle);
 
-  command(battle, { side: 'attacker', type: 'двигает отряд' });
-  command(battle, { side: 'defender', type: 'атакует' });
+  command(battle, {
+    side: 'defender',
+    type: 'attack',
+    unitIndex: 0, // лучник атакуетл егкий копейщик
+    targetIndex: 0,
+  });
   endTurn(battle);
-
-  command(battle, { side: 'attacker', type: 'атакует' });
-  command(battle, { side: 'defender', type: 'атакует' });
-  endTurn(battle);
-  console.log('проверка состояния:', battle.state); // battle — бой продолжается - пока юниты есть у армий
 }
 
 main();
 
 /*
+$ node battle.js
 проверка состояния после создания битвы: preparation
 Начало битвы
 Ход № 1
 Ходят атакующие
 проверка состояния после старта битвы: battle
-вы не можете делать действия во время чужого хода
-[attacker] : двигает отряд
+light spearman атакует archer и наносит 12 урона. Осталось хп у archer: 118
 Ход № 2
 Ходят защищающиеся
-вы не можете делать действия во время чужого хода
-[defender] : атакует
+archer стреляет в light spearman и наносит 27 урона (модификатор х1.5). Осталось хп у light spearman: 53
 Ход № 3
 Ходят атакующие
-[attacker] : атакует
-вы не можете делать действия во время чужого хода
-Ход № 4
-Ходят защищающиеся
-проверка состояния: battle
 */

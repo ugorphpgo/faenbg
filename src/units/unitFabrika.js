@@ -21,6 +21,7 @@ function createUnit(templateName) {
   //модификатор урона
   unit.damageModifiers = { ...template.damageModifiers };
   unit.abilities = [...template.abilities];
+  unit.attackStrategy = template.attackStrategy;
 
   return unit;
 }

@@ -9,6 +9,7 @@ class Unit {
     this.maxMorale = morale;
     this.currentMorale = morale;
     this.speed = speed;
+    this.damage = damage;
 
     this.damageModifiers = {
       damageFromRanged: 1,
@@ -17,8 +18,8 @@ class Unit {
   }
 
   //Метод  для проверки - есть ли штраф за отсуствие половины воиска
-  getCurrentDamage() {
-    const halfhp = this.maxHp / 2;
+  getEffectiveDamage() {
+    const halfHp = this.maxHp / 2;
 
     if (this.currentHp <= halfHp) {
       return this.damage * 0.5;

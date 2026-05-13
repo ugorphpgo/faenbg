@@ -81,12 +81,12 @@ function command(battle, action) {
     console.log(`вы не можете делать действия во время чужого хода `);
     return;
   }
-  const actingSide = action.side === 'attacker' ? battle.attackSide : battle.defendSide; //проверка - чей отряд аттакует с помозью тернарного оператора
-  const targetSide = action.side === 'attacker' ? battle.defendSide : battle.attackSide;
+  const actingSide = action.side === 'attacker' ? battle.attackSide : battle.defendSide; //проверка - чей отряд аттакует с помощью тернарного оператора
+  const targetSide = action.side === 'attacker' ? battle.defendSide : battle.attackSide; // если атакуюет 'attakcker' то целью является defender
 
   if (action.type === 'attack') {
-    const attacker = actingSide.units[action.unitIndex];
-    const target = targetSide.units[action.targetIndex];
+    const attacker = actingSide.units[action.unitIndex]; //присваем юнитам - кто аттакер а кто таргет
+    const target = targetSide.units[action.targetIndex]; //для этого нам нужно знать индекс отряда
 
     if (!attacker || !attacker.isAlive()) {
       console.log('Аттакующего отряда не существуе или он уничтожен');
@@ -104,6 +104,8 @@ function command(battle, action) {
       // проверка - остались ли хп у армии targeta после атаки
       endTurn(battle);
     }
+  } else {
+    console.log('Пока что нету реализации для этого');
   }
 }
 //простой вывод действия определнной стороны

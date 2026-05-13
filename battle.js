@@ -99,6 +99,11 @@ function command(battle, action) {
     }
 
     attacker.attackStrategy(attacker, target);
+
+    if (target.currentHp <= 0) {
+      // проверка - остались ли хп у армии targeta после атаки
+      endTurn(battle);
+    }
   }
 }
 //простой вывод действия определнной стороны
@@ -134,21 +139,52 @@ function main() {
     targetIndex: 0,
   });
   endTurn(battle);
+
+  command(battle, {
+    side: 'attacker',
+    type: 'attack',
+    unitIndex: 0, // легкий копейщик атакует лучника
+    targetIndex: 0,
+  });
+  endTurn(battle);
+
+  command(battle, {
+    side: 'defender',
+    type: 'attack',
+    unitIndex: 0, // лучник атакуетл егкий копейщик
+    targetIndex: 0,
+  });
+  endTurn(battle);
+  command(battle, {
+    side: 'attacker',
+    type: 'attack',
+    unitIndex: 0, // легкий копейщик атакует лучника
+    targetIndex: 0,
+  });
+  endTurn(battle);
+
+  command(battle, {
+    side: 'defender',
+    type: 'attack',
+    unitIndex: 0, // лучник атакуетл егкий копейщик
+    targetIndex: 0,
+  });
 }
 
 main();
 
 /*
-$ node battle.js
-проверка состояния после создания битвы: preparation
-Начало битвы
-Ход № 1
-Ходят атакующие
-проверка состояния после старта битвы: battle
-light spearman атакует archer и наносит 12 урона. Осталось хп у archer: 118
-Ход № 2
-Ходят защищающиеся
-archer стреляет в light spearman и наносит 27 урона (модификатор х1.5). Осталось хп у light spearman: 53
 Ход № 3
 Ходят атакующие
+light spearman атакует archer и наносит 12 урона. Осталось хп у archer: 106
+Ход № 4
+Ходят защищающиеся
+archer стреляет в light spearman и наносит 27 урона (модификатор х1.5). Осталось хп у light spearman: 26
+Ход № 5
+Ходят атакующие
+light spearman атакует archer и наносит 6 урона. Осталось хп у archer: 100
+Ход № 6
+Ходят защищающиеся
+archer стреляет в light spearman и наносит 27 урона (модификатор х1.5). Осталось хп у light spearman: -1
+Битва окончена - победа защищающиехся
 */

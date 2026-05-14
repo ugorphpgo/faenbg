@@ -12,6 +12,11 @@ const STATE = {
   finished: 'finished',
 };
 
+function getDistance(from, to) {
+  const dx = Math.abs(to.x - from.x);
+  const dy = Math.abs(to.y - from.y);
+  return Math.max(dx, dy);
+}
 function createBattle(attackSide, defendSide) {
   return {
     attackSide,
@@ -84,7 +89,26 @@ function command(battle, action) {
   const actingSide = action.side === 'attacker' ? battle.attackSide : battle.defendSide; //проверка - чей отряд аттакует с помощью тернарного оператора
   const targetSide = action.side === 'attacker' ? battle.defendSide : battle.attackSide; // если атакуюет 'attakcker' то целью является defender
 
-  if (action.type === 'attack') {
+  if (action.type === 'move') {
+    const movingUnit = actingSide.units[action.unitIndex];
+    if (!movingUnit || !movingUnit.isAlive()) {
+      console.log('Отряд не найден или уничтожен');
+      return;
+    }
+    const allowedDistance = getDistance(movingUnit.position, action.moveTo);
+
+    if (allowedDistance > movingUnit.speed) {
+      console.log(
+        `${movingUnit.name} не может переместиться на ` +
+          `расстояние = ${allowedDistance}, это больше скорости юнита =  ${movingUnit.speed}`,
+      );
+      return;
+    }
+    movingUnit.position = { x: action.moveTo.x, y: action.moveTo.y };
+    console.log(
+      `${movingUnit.name} переместился на на (${movingUnit.position.x}, ${movingUnit.position.y})`,
+    );
+  } else if (action.type === 'attack') {
     const attacker = actingSide.units[action.unitIndex]; //присваем юнитам - кто аттакер а кто таргет
     const target = targetSide.units[action.targetIndex]; //для этого нам нужно знать индекс отряда
 
@@ -105,7 +129,7 @@ function command(battle, action) {
       endTurn(battle);
     }
   } else {
-    console.log('Пока что нету реализации для этого');
+    console.log('Неправильная  команда - это действие невозможно выполнить');
   }
 }
 //простой вывод действия определнной стороны

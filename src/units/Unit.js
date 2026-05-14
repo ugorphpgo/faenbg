@@ -10,6 +10,10 @@ class Unit {
     this.currentMorale = morale;
     this.speed = speed;
     this.damage = damage;
+    this.position = {
+      x: null,
+      y: null,
+    };
 
     this.damageModifiers = {
       damageFromRanged: 1,

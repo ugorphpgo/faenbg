@@ -9,8 +9,9 @@ class ArmyBuilder {
   }
 
   // Добавить отряд в армию
-  addUnit(unit) {
+  addUnit(unit, x, y) {
     this.units.push(unit);
+    unit.position = { x, y };
   }
 
   // Провека  — есть ли ещё живые отряды c помощью метода some.

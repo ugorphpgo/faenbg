@@ -26,4 +26,5 @@ function rangeAttack(attacker, target) {
   );
 }
 
+function moveTo(unit, startLoc, destLoc) {}
 module.exports = { meleeAttack, rangeAttack };

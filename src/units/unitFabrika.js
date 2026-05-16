@@ -1,8 +1,9 @@
-//Прочитал про  то кан создавать новые объекты с использованием фабричных функций
-const Unit = require('./Unit');
-const unitTemplates = require('./UnitTemplates');
+//Прочитал про  то кан создавать новые объекты с использованием фабричных функци
 
-function createUnit(templateName) {
+import { Unit } from './Unit.js';
+import { unitTemplates } from './UnitTemplates.js';
+
+export function createUnit(templateName) {
   //Создание  юнита по имени шаблона из UnitTemplates
   const template = unitTemplates[templateName];
 
@@ -25,5 +26,3 @@ function createUnit(templateName) {
 
   return unit;
 }
-
-module.exports = createUnit;

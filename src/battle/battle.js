@@ -1,6 +1,3 @@
-const Army = require('../army/ArmyBuilder');
-const createUnit = require('../units/unitFabrika'); //подключаем классы
-
 let turn = 0;
 const STATE = {
   /*три состояния  -  
@@ -12,12 +9,12 @@ const STATE = {
   finished: 'finished',
 };
 
-function getDistance(from, to) {
+export function getDistance(from, to) {
   const dx = Math.abs(to.x - from.x);
   const dy = Math.abs(to.y - from.y);
   return Math.max(dx, dy);
 }
-function createBattle(attackSide, defendSide) {
+export function createBattle(attackSide, defendSide) {
   return {
     attackSide,
     defendSide,
@@ -26,7 +23,7 @@ function createBattle(attackSide, defendSide) {
   };
 }
 
-function startBattle(battle) {
+export function startBattle(battle) {
   // cтарт битвы
   if (battle.state !== STATE.preparation) {
     console.log('битва уже идёт или завершена');
@@ -41,7 +38,7 @@ function startBattle(battle) {
 }
 
 //конец битвы
-function endTurn(battle) {
+export function endTurn(battle) {
   if (battle.state !== STATE.battle) {
     // проверяем - есть ли сейчас битва чтобы закончить ход
     console.log('битвы сейчас нет - завершить ход нельщя');
@@ -73,7 +70,7 @@ function endTurn(battle) {
   }
 }
 
-function command(battle, action) {
+export function command(battle, action) {
   // прототип действий
   // пока проверка на то что бой идет и действие делает тот игрок чей ход сейчас
   if (battle.state !== STATE.battle) {
@@ -133,7 +130,6 @@ function command(battle, action) {
   }
 }
 //простой вывод действия определнной стороны
-module.exports = { createBattle, command, startBattle, endTurn };
 
 /*
 Ход № 3

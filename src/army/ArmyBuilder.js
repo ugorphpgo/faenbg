@@ -1,5 +1,5 @@
 // Создаем класс army
-class ArmyBuilder {
+export class ArmyBuilder {
   constructor(side) {
     // Чья армия — нападающего или защищающегося
     this.side = side;
@@ -20,5 +20,3 @@ class ArmyBuilder {
     return this.units.some((unit) => unit.isAlive() && !unit.isRouting());
   }
 }
-
-module.exports = ArmyBuilder;

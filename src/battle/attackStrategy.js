@@ -1,4 +1,4 @@
-function meleeAttack(attacker, target) {
+export function meleeAttack(attacker, target) {
   //функция аттаки для мили ( без модификаторов)
   const damage = attacker.getEffectiveDamage(); //записываем в урон значение эффективного урона(если армия меньше 50%)
   const finalDamage = Math.round(damage); //округление до целого числа
@@ -11,7 +11,7 @@ function meleeAttack(attacker, target) {
   );
 }
 
-function rangeAttack(attacker, target) {
+export function rangeAttack(attacker, target) {
   //функция аттаки для ренж  - отдельная из-за модификатора
   const damage = attacker.getEffectiveDamage();
   const modifier = target.damageModifiers.takenFromRanged;
@@ -25,6 +25,3 @@ function rangeAttack(attacker, target) {
       `Осталось хп у ${target.name}: ${target.currentHp}`,
   );
 }
-
-function moveTo(unit, startLoc, destLoc) {}
-module.exports = { meleeAttack, rangeAttack };

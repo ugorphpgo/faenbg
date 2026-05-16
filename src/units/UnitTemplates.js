@@ -1,5 +1,5 @@
-const { meleeAttack, rangeAttack } = require('../battle/attackStrategy');
-const unitTemplates = {
+import { meleeAttack, rangeAttack } from '../battle/index.js';
+export const unitTemplates = {
   light_spearman: {
     name: 'light spearman',
     hp: 80,
@@ -40,5 +40,3 @@ const unitTemplates = {
     attackStrategy: rangeAttack,
   },
 };
-
-module.exports = unitTemplates;

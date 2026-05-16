@@ -1,5 +1,5 @@
 //класс юнит - определяет юнита(отряд) в текущем его состоянии
-class Unit {
+export class Unit {
   constructor(name, hp, damage, morale, speed, unitType) {
     this.name = name;
     this.unitType = unitType;
@@ -41,5 +41,3 @@ class Unit {
     return this.currentMorale <= 0;
   }
 }
-
-module.exports = Unit;

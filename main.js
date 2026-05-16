@@ -1,13 +1,13 @@
-const Army = require('./src/army/ArmyBuilder');
-const createUnit = require('./src/units/unitFabrika');
-const { createBattle, command, startBattle, endTurn } = require('./src/battle/battle');
+import { ArmyBuilder } from './src/army/index.js';
+import { createUnit } from './src/units/index.js';
+import { createBattle, command, startBattle, endTurn } from './src/battle/index.js';
 function main() {
   //функция main-  тут воюем - продемонстрировано создание армии с отрядами и переход хода
 
-  const attackSide = new Army('attacker');
+  const attackSide = new ArmyBuilder('attacker');
   attackSide.addUnit(createUnit('light_spearman'), 0, 0); //добавляем отряд в армию и создаем армию аттакера
 
-  const defendSide = new Army('defender');
+  const defendSide = new ArmyBuilder('defender');
   defendSide.addUnit(createUnit('archer'), 5, 5); //добавляем отряд в армию и создаем армию аттакера
 
   const battle = createBattle(attackSide, defendSide);

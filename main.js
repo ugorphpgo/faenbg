@@ -1,6 +1,5 @@
-import { ArmyBuilder } from './src/army/index.js';
-import { createUnit } from './src/units/index.js';
-import { createBattle, command, startBattle, endTurn } from './src/battle/index.js';
+import { ArmyBuilder, createBattle, command, startBattle, endTurn, createUnit } from './index.js';
+
 function main() {
   //функция main-  тут воюем - продемонстрировано создание армии с отрядами и переход хода
 
